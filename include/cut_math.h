@@ -766,68 +766,19 @@ template <> FUNC const Vec4f max(const Vec4f a, const Vec4f b)
     return Vec4f(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z), max(a.w, b.w));
 }
 
-// Explicit constructors
-
-template <typename VEC> FUNC Vec2i make_vec2i(VEC v)
-{
-    return Vec2i(v.x, v.y);
-}
-
-template <typename VEC> FUNC Vec2f make_vec2f(VEC v)
-{
-    return Vec2f(v.x, v.y);
-}
-
 template <typename In, typename Out> FUNC Vec2<Out> cast(Vec2<In> v)
 {
-    return Vec2<Out>(v.x, v.y);
+    return Vec2<Out>(static_cast<Out>(v.x), static_cast<Out>(v.y));
 }
-
-template <typename T> FUNC Vec2f make_vec2f(Vec2<T> v)
-{
-    return Vec2f(static_cast<float>(v.x), static_cast<float>(v.y));
-}
-
-template <typename T> FUNC Vec2f make_vec2f(const Vec3<T> &v)
-{
-    return Vec2f(v.x, v.y);
-}
-
-template <typename T> FUNC Vec2f make_vec2f(const Vec4<T> &v)
-{
-    return Vec2f(v.x, v.y);
-}
-
-#ifdef CUDA_SUPPORT
-FUNC Vec2f make_vec2f(float4 v)
-{
-    return Vec2f(v.x, v.y);
-}
-#endif
 
 template <typename In, typename Out> FUNC Vec3<Out> cast(Vec3<In> v)
 {
-    return Vec3<Out>(v.x, v.y, v.z);
-}
-
-template <typename VEC> FUNC Vec3f make_vec3f(const VEC v)
-{
-    return Vec3f(v.x, v.y, v.z);
-}
-
-template <typename VEC> FUNC Vec3d make_vec3d(const VEC v)
-{
-    return Vec3d(v.x, v.y, v.z);
+    return Vec3<Out>(static_cast<Out>(v.x), static_cast<Out>(v.y), static_cast<Out>(v.z));
 }
 
 template <typename In, typename Out> FUNC Vec4<Out> cast(Vec4<In> v)
 {
-    return Vec4<Out>(v.x, v.y, v.z, v.w);
-}
-
-template <typename VEC> FUNC Vec4f make_vec4f(const VEC v)
-{
-    return Vec4f(v.x, v.y, v.z, v.w);
+    return Vec4<Out>(static_cast<Out>(v.x), static_cast<Out>(v.y), static_cast<Out>(v.z), static_cast<Out>(v.w));
 }
 
 template <typename T> FUNC T min3(T x, T y, T z)
