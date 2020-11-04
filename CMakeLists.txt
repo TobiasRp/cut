@@ -15,7 +15,7 @@ include(cmake/ClangTidy.cmake)
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(cut_properties)
 
-add_library(cut src/cut_common.cpp src/cut_memory.cpp src/extrema.cpp src/extrema.cu src/sort_util.cu src/timing.cpp)
+add_library(cut STATIC src/cut_common.cpp src/cut_memory.cpp src/extrema.cpp src/extrema.cu src/sort_util.cu src/timing.cpp)
 target_link_libraries(cut cut_properties)
 target_include_directories(cut PUBLIC ${PROJECT_SOURCE_DIR}/include/)
 set_target_properties(cut PROPERTIES CUDA_SEPARABLE_COMPILATION ON)

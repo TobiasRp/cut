@@ -96,9 +96,9 @@ template <typename T> struct Range
 {
     FUNC Range() {}
 
-    FUNC Range(T min, T max)
-        : min(min)
-        , max(max)
+    FUNC Range(T pmin, T pmax)
+        : min(pmin)
+        , max(pmax)
     {
     }
 
