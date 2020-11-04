@@ -29,7 +29,7 @@
 #pragma warning(disable : 4522) /* Ignore warnings about multiple assignment operators */
 #endif
 
-#include "cuda_common.h"
+#include "cut_common.h"
 #include <cassert>
 #include <cmath>
 
