@@ -24,13 +24,13 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sort_util.cuh"
 
-#include <algorithm>
+#include "cut_common.h"
 
-#ifdef CUDA_SUPPORT
+using std::vector;
+
 #include <thrust/device_vector.h>
 #include <thrust/sort.h>
 #include <thrust/sequence.h>
-#endif
 
 namespace cut
 {
@@ -67,6 +67,51 @@ void getSortedIndices(const vector<float> &values, vector<uint> &valueIndices)
 void getSortedIndices(const vector<uint32_t> &values, vector<uint32_t> &valueIndices)
 {
     getSortedIndicesHelper(values, valueIndices);
+}
+
+template <typename T, typename I>
+__global__ void reorderingKernel(const T *in, T *out, const I *indices, size_t num_values)
+{
+    auto gId = blockDim.x * blockIdx.x + threadIdx.x;
+    if (gId >= num_values)
+        return;
+    out[gId] = in[indices[gId]];
+}
+
+template <typename T, typename I>
+inline void reorderByIndexHelper(T *values, const I *indices, size_t num_values)
+{
+    dim3 threadsPerBlock = 256;
+    dim3 numPartBlocks = (num_values + threadsPerBlock.x - 1) / threadsPerBlock.x;
+
+    cut::dev_ptr<T> d_values(num_values);
+    d_values.loadFromHost(values, num_values);
+    cut::dev_ptr<I> d_indices(num_values);
+    d_indices.loadFromHost(indices, num_values);
+    cut::dev_ptr<T> d_temp(num_values);
+
+    reorderingKernel<<<numPartBlocks, threadsPerBlock>>>(d_values.get(), d_temp.get(), d_indices.get(), num_values);
+    d_temp.copyToHost(values, num_values);
+}
+
+void reorder_by_index(float *values, const uint32_t *indices, size_t num_values)
+{
+    reorderByIndexHelper(values, indices, num_values);
+}
+
+void reorder_by_index(float *values, const uint64_t *indices, size_t num_values)
+{
+    reorderByIndexHelper(values, indices, num_values);
+}
+
+void reorder_by_index(uint32_t *values, const uint32_t *indices, size_t num_values)
+{
+    reorderByIndexHelper(values, indices, num_values);
+}
+
+void reorder_by_index(uint64_t *values, const uint64_t *indices, size_t num_values)
+{
+    reorderByIndexHelper(values, indices, num_values);
 }
 
 } // namespace device

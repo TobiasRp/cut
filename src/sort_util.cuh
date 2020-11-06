@@ -25,21 +25,27 @@
 #ifndef SORT_UTIL_CUH
 #define SORT_UTIL_CUH
 
-#include "cuda_common.h"
+#ifdef CUDA_SUPPORT
+#include "cut_common.h"
 #include <vector>
-using std::vector;
 
 namespace cut
 {
 namespace device
 {
 
-void getSortedIndices(const vector<float> &values, vector<int> &valueIndices);
-void getSortedIndices(const vector<float> &values, vector<uint32_t> &valueIndices);
-void getSortedIndices(const vector<uint32_t> &values, vector<uint32_t> &valueIndices);
+void getSortedIndices(const std::vector<float> &values, std::vector<int> &valueIndices);
+void getSortedIndices(const std::vector<float> &values, std::vector<uint32_t> &valueIndices);
+void getSortedIndices(const std::vector<uint32_t> &values, std::vector<uint32_t> &valueIndices);
+
+void reorder_by_index(uint64_t *values, const uint64_t *indices, size_t num_values);
+void reorder_by_index(float *values, const uint32_t *indices, size_t num_values);
+void reorder_by_index(float *values, const uint64_t *indices, size_t num_values);
+void reorder_by_index(uint32_t *values, const uint32_t *indices, size_t num_values);
 
 } // namespace device
 
 } // namespace cut
 
+#endif
 #endif // SORT_UTIL_CUH

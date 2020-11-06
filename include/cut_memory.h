@@ -25,6 +25,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
+#include <cstdint>
 #include <cstddef>
 #include <vector>
 using std::vector;
@@ -47,7 +48,7 @@ extern void *allocUnified(size_t size, const char *name);
 extern void freeUnified(void *dptr);
 
 #define UNIFIED_MALLOC(size) cut::allocUnified(size, CUT_INTERNAL_LOCATION)
-#define UNIFIED_FREE(ptr) cut::freeUnified(ptr)
+#define UNIFIED_FREE(ptr) cut::freeUnified((void*)ptr)
 
 template <typename T> inline T *allocDeviceTyped(size_t size, const char *name)
 {

@@ -29,11 +29,14 @@
 #include "sort_util.cuh"
 #endif 
 
+#include <vector>
 #include <algorithm>
+#include <cstdint>
+#include <numeric>
 
 namespace cut
 {
-template <typename Value, typename Id> void getSortedIndices(const vector<Value> &values, vector<Id> &valueIndices)
+template <typename Value, typename Id> void getSortedIndices(const std::vector<Value> &values, std::vector<Id> &valueIndices)
 {
 #ifdef CUDA_SUPPORT
     cut::device::getSortedIndices(values, valueIndices);
@@ -44,6 +47,20 @@ template <typename Value, typename Id> void getSortedIndices(const vector<Value>
     std::sort(valueIndices.begin(), valueIndices.end(), [&](int lhs, int rhs) { return values[lhs] < values[rhs]; });
 #endif
 }
+
+template<typename ValueType, typename IndexType>
+void reorder_by_index(ValueType *values, const IndexType *indices, size_t num_values)
+{
+#ifdef CUDA_SUPPORT
+    cut::device::reorder_by_index(values, indices, num_values);
+#else
+    vector<ValueType> temp(num_values);
+    for (size_t i = 0; i < num_values; ++i)
+        temp[i] = values[indices[i]];
+    std::copy(temp, temp + num_values, values);
+#endif
+}
+
 } // namespace cut
 
 #endif // SORT_UTIL_H

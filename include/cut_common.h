@@ -49,7 +49,7 @@ void checkCUDA(cudaError_t err, const char *file, int line);
 
 #define FUNC __device__ __host__ __inline__
 
-#include "cuda_memory.h"
+#include "cut_memory.h"
 
 extern cudaDeviceProp g_DeviceProp;
 void init_device(int dev_id);

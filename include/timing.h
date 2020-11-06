@@ -29,6 +29,8 @@
 using std::string;
 #include <chrono>
 #include <unordered_map>
+#include <cassert>
+#include "cut_common.h"
 
 #ifdef CUDA_SUPPORT
 #ifdef USE_NVTX

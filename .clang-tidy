@@ -1,5 +1,7 @@
 ---
-Checks:	   '*,-fuchsia-*,-google-*,-zircon-*,-abseil-*,-modernize-use-trailing-return-type,-llvm-*'
+Checks:	   '*,-fuchsia-*,-google-*,-zircon-*,-abseil-*,-modernize-use-trailing-return-type,-llvm-*,
+            -readability-uppercase-literal-suffix,-hicpp-uppercase-literal-suffix,-readability-magic-numbers,-cppcoreguidelines-avoid-magic-numbers,
+            -readability-braces-around-statements,-hicpp-braces-around-statements'
 WarningsAsErrors: '1'
 HeaderFilterRegex: ''
 FormatStyle: none

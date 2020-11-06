@@ -23,11 +23,15 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef CUDA_SUPPORT
+#include <cut_common.h>
 #include "cut_memory.h"
 
 #include <iostream>
 #include <mutex>
 #include <unordered_map>
+#include <string>
+#include <cassert>
+using std::string;
 
 namespace cut
 {
@@ -46,7 +50,7 @@ void *allocDevice(size_t size, const char *name)
 {
     assert(size > 0);
 
-    void *ptr;
+    void *ptr = nullptr;
     CHECK_CUDA(cudaMalloc(&ptr, size));
 
     s_allocLock.lock();
@@ -69,7 +73,7 @@ void *allocUnified(size_t size, const char *name)
 {
     assert(size > 0);
 
-    void *ptr;
+    void *ptr = nullptr;
     CHECK_CUDA(cudaMallocManaged(&ptr, size));
 
     s_allocLock.lock();
