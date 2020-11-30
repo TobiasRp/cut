@@ -22,8 +22,8 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef MRAY_EXTREMA_CUH
-#define MRAY_EXTREMA_CUH
+#ifndef LRAY_EXTREMA_CUH
+#define LRAY_EXTREMA_CUH
 
 namespace cut
 {
@@ -38,4 +38,4 @@ void find_max_host(const float *values, size_t num_values, float &max);
 
 } // namespace cut
 
-#endif // MRAY_EXTREMA_CUH
+#endif // LRAY_EXTREMA_CUH

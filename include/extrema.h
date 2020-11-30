@@ -22,8 +22,8 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef MRAY_EXTREMA_H
-#define MRAY_EXTREMA_H
+#ifndef CUT_EXTREMA_H
+#define CUT_EXTREMA_H
 
 #include <cstddef>
 
@@ -41,4 +41,4 @@ extern void find_minmax(const float *values, size_t num_values, float &min, floa
 
 } // namespace cut
 
-#endif // MRAY_EXTREMA_H
+#endif // CUT_EXTREMA_H

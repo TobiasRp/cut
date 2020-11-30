@@ -22,58 +22,53 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef RAYTRACING_H
-#define RAYTRACING_H
+#ifndef CUT_RAYTRACING_H
+#define CUT_RAYTRACING_H
 
-#include "camera.h"
+#include "cut_common.h"
+#include "cut_math.h"
+#include "matrix.h"
 
 namespace cut
 {
 
 struct Ray
 {
-    Vec3f origin;
-    Vec3f dir;
+    cut::Vec3f origin;
+    cut::Vec3f dir;
 };
 
-FUNC Ray get_eye_ray_persp(const Camera &camera, Vec2f ndc)
+FUNC Ray get_eye_ray_persp(cut::Vec3f cam_pos, cut::Mat4f cam_transform, float cam_aspect, float cam_scale, Vec2f ndc)
 {
     Ray ray;
-    ray.origin = camera.position;
+    ray.origin = cam_pos;
 
-    float x = ndc.x * camera.aspect * camera.scale;
-    float y = ndc.y * camera.scale;
+    float x = ndc.x * cam_aspect * cam_scale;
+    float y = ndc.y * cam_scale;
 
-    ray.dir = normalize(make_vec3f(camera.transform * Vec4f(x, y, -1.0f, 0.0f)));
+    auto dir = cam_transform * Vec4f(x, y, -1.0f, 0.0f);
+    ray.dir = normalize(cut::Vec3f(dir.x, dir.y, dir.z));
     return ray;
 }
 
-FUNC Ray get_eye_ray_ortho(const Camera &camera, Vec2f ndc)
+FUNC Ray get_eye_ray_ortho(cut::Vec3f cam_pos, cut::Vec3f cam_right, cut::Vec3f cam_up, cut::Vec3f cam_dir, cut::Vec2f ndc)
 {
     Ray ray;
-    ray.origin = camera.position + ndc.x * camera.right + ndc.y * camera.up;
-    ray.dir = camera.dir;
+    ray.origin = cam_pos + ndc.x * cam_right + ndc.y * cam_up;
+    ray.dir = cam_dir;
     return ray;
 }
 
-FUNC Ray get_eye_ray(const Camera &camera, Vec2f ndc)
-{
-    if (camera.orthographic)
-        return get_eye_ray_ortho(camera, ndc);
-    else
-        return get_eye_ray_persp(camera, ndc);
-}
-
-FUNC bool intersect_AABB(Ray r, Vec3f bb_min, Vec3f bb_max, float &t_near, float &t_far)
+FUNC bool intersect_AABB(Ray r, cut::Vec3f bb_min, cut::Vec3f bb_max, float &t_near, float &t_far)
 {
     // compute intersection of ray with all six bbox planes
-    Vec3f invR = div(Vec3f{1.0f}, r.dir);
-    Vec3f tbot = mul(invR, (bb_min - r.origin));
-    Vec3f ttop = mul(invR, (bb_max - r.origin));
+    cut::Vec3f invR = div(cut::Vec3f{1.0f}, r.dir);
+    cut::Vec3f tbot = mul(invR, (bb_min - r.origin));
+    cut::Vec3f ttop = mul(invR, (bb_max - r.origin));
 
     // re-order intersections to find smallest and largest on each axis
-    Vec3f tmin = min(ttop, tbot);
-    Vec3f tmax = max(ttop, tbot);
+    cut::Vec3f tmin = min(ttop, tbot);
+    cut::Vec3f tmax = max(ttop, tbot);
 
     // find the largest tmin and the smallest tmax
     float largest_tmin = max(max(tmin.x, tmin.y), max(tmin.x, tmin.z));

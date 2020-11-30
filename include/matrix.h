@@ -25,7 +25,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "cuda_math.h"
+#include "cut_math.h"
 
 namespace cut
 {
@@ -417,12 +417,12 @@ template <typename T> FUNC T trace(Mat3<T> M)
 
 template <typename T> FUNC void eigenvaluesOfMat(Mat2<T> A, T &e1, T &e2)
 {
-    double trace = static_cast<double>(A[0][0]) + static_cast<double>(A[1][1]);
+    double tr = static_cast<double>(A[0][0]) + static_cast<double>(A[1][1]);
 
     double det = static_cast<double>(A[0][0]) * static_cast<double>(A[1][1]) -
                  static_cast<double>(A[1][0]) * static_cast<double>(A[1][0]);
 
-    double t = ((trace * trace) / 4.0);
+    double t = ((tr * tr) / 4.0);
     double disc = t - det;
 
     if (!(disc >= 0.0))
@@ -435,8 +435,8 @@ template <typename T> FUNC void eigenvaluesOfMat(Mat2<T> A, T &e1, T &e2)
         assert(disc >= 0.0);
 
         double root = sqrt(disc);
-        e1 = 0.5 * trace + root;
-        e2 = 0.5 * trace - root;
+        e1 = 0.5 * tr + root;
+        e2 = 0.5 * tr - root;
     }
 }
 
@@ -569,7 +569,7 @@ FUNC void eigenvectorsOfSymmetricMat(Mat3<T> A, T e1, T e2, T e3, Vec3<T> &v1, V
 template <typename T> class Mat4
 {
 public:
-    FUNC Mat4() {}
+    FUNC Mat4() = default;
 
     /* Creates a matrix with s on the diagonal */
     FUNC Mat4(T s)
@@ -602,6 +602,8 @@ public:
         m[3][3] = m33;
     }
 
+    FUNC Mat4(const Mat4 &m) = default;
+
     /** Creates a 4x4 matrix from an array.
      * \note Make sure that the array uses the same memory layout as this matrix.
      * GLM's mat4 is transposed in regard to this class!!!
@@ -612,12 +614,7 @@ public:
 
     FUNC T *operator[](uint32_t row) { return m[row]; }
 
-    /** Assigns the 4x4 matrix. */
-    FUNC Mat4<T> &operator=(const Mat4 &mat)
-    {
-        memcpy(m, mat.m, sizeof(T) * 16);
-        return *this;
-    }
+    FUNC Mat4<T> &operator=(const Mat4 &mat) = default;
 
     FUNC T *ptr() { return reinterpret_cast<T *>(&m); }
 

@@ -22,8 +22,10 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef MRAY_STRIDED_ARRAY_H
-#define MRAY_STRIDED_ARRAY_H
+#ifndef CUT_STRIDED_ARRAY_H
+#define CUT_STRIDED_ARRAY_H
+
+#include "cut_common.h"
 
 template<typename T>
 struct strided_array
@@ -42,4 +44,4 @@ struct strided_array
     FUNC T &operator[](int i) { return base_ptr[offset * i];}
 };
 
-#endif // MRAY_STRIDED_ARRAY_H
+#endif // LRAY_STRIDED_ARRAY_H
