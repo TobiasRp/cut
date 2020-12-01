@@ -12,6 +12,13 @@ else()
     target_compile_features(cut PUBLIC cxx_std_14)
 endif()
 
+option(CUDA_ARCH "CUDA architecture(s)" 61)
+if (NOT DEFINED ${CUDA_ARCH} )
+    set_property(TARGET cut PROPERTY CMAKE_CUDA_ARCHITECTURE ${CUDA_ARCH})
+else()
+    set_property(TARGET cut PROPERTY CMAKE_CUDA_ARCHITECTURE 50 61 75)
+endif()
+
 if(ENABLE_CUDA)
     target_sources(cut PRIVATE src/extrema.cu src/sort_util.cu)
 endif()
