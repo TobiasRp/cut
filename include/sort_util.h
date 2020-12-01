@@ -22,8 +22,8 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef SORT_UTIL_H
-#define SORT_UTIL_H
+#ifndef CUT_SORT_UTIL_H
+#define CUT_SORT_UTIL_H
 
 #ifdef CUDA_SUPPORT
 #include "sort_util.cuh"
@@ -36,7 +36,7 @@
 
 namespace cut
 {
-template <typename Value, typename Id> void getSortedIndices(const std::vector<Value> &values, std::vector<Id> &valueIndices)
+template <typename Value, typename Id> inline void getSortedIndices(const std::vector<Value> &values, std::vector<Id> &valueIndices)
 {
 #ifdef CUDA_SUPPORT
     cut::device::getSortedIndices(values, valueIndices);
@@ -49,7 +49,7 @@ template <typename Value, typename Id> void getSortedIndices(const std::vector<V
 }
 
 template<typename ValueType, typename IndexType>
-void reorder_by_index(ValueType *values, const IndexType *indices, size_t num_values)
+inline void reorder_by_index(ValueType *values, const IndexType *indices, size_t num_values)
 {
 #ifdef CUDA_SUPPORT
     cut::device::reorder_by_index(values, indices, num_values);
@@ -63,4 +63,4 @@ void reorder_by_index(ValueType *values, const IndexType *indices, size_t num_va
 
 } // namespace cut
 
-#endif // SORT_UTIL_H
+#endif // CUT_SORT_UTIL_H

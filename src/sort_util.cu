@@ -24,8 +24,6 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sort_util.cuh"
 
-#include "cut_common.h"
-
 using std::vector;
 
 #include <thrust/device_vector.h>

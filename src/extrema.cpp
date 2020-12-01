@@ -23,7 +23,9 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "extrema.h"
+#ifdef CUDA_SUPPORT
 #include "extrema.cuh"
+#endif
 
 #include <algorithm>
 
@@ -33,7 +35,7 @@ namespace cut
 void find_min(const float *values, size_t num_values, float &min)
 {
 #ifdef CUDA_SUPPORT
-    cut::find_min_host(values, num_values, min);
+    cut::device::find_min_host(values, num_values, min);
 #else
     min = values[0];
 
@@ -45,7 +47,7 @@ void find_min(const float *values, size_t num_values, float &min)
 void find_max(const float *values, size_t num_values, float &max)
 {
 #ifdef CUDA_SUPPORT
-    cut::find_max_host(values, num_values, max);
+    cut::device::find_max_host(values, num_values, max);
 #else
     max = values[0];
 
@@ -57,7 +59,7 @@ void find_max(const float *values, size_t num_values, float &max)
 void find_minmax(const float *values, size_t num_values, float &min, float &max)
 {
 #ifdef CUDA_SUPPORT
-    cut::find_minmax_host(values, num_values, min, max);
+    cut::device::find_minmax_host(values, num_values, min, max);
 #else
     min = values[0];
     max = values[0];

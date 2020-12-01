@@ -27,15 +27,20 @@
 
 namespace cut
 {
+namespace device
+{
+
 /** Computes the min and max values for given >device< memory */
-void find_minmax_device(const float *values, size_t num_values, float &min, float &max);
+extern void find_minmax_device(const float *values, size_t num_values, float &min, float &max);
 
 /** Computes the min and max values for given >host< memory */
-void find_minmax_host(const float *values, size_t num_values, float &min, float &max);
+extern void find_minmax_host(const float *values, size_t num_values, float &min, float &max);
 
-void find_min_host(const float *values, size_t num_values, float &min);
-void find_max_host(const float *values, size_t num_values, float &max);
+extern void find_min_host(const float *values, size_t num_values, float &min);
 
+extern void find_max_host(const float *values, size_t num_values, float &max);
+
+} // namespace device
 } // namespace cut
 
 #endif // LRAY_EXTREMA_CUH

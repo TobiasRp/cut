@@ -22,8 +22,8 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef SORT_UTIL_CUH
-#define SORT_UTIL_CUH
+#ifndef CUT_SORT_UTIL_CUH
+#define CUT_SORT_UTIL_CUH
 
 #ifdef CUDA_SUPPORT
 #include "cut_common.h"
@@ -33,18 +33,18 @@ namespace cut
 namespace device
 {
 
-void getSortedIndices(const std::vector<float> &values, std::vector<int> &valueIndices);
-void getSortedIndices(const std::vector<float> &values, std::vector<uint32_t> &valueIndices);
-void getSortedIndices(const std::vector<uint32_t> &values, std::vector<uint32_t> &valueIndices);
+extern void getSortedIndices(const std::vector<float> &values, std::vector<int> &valueIndices);
+extern void getSortedIndices(const std::vector<float> &values, std::vector<uint32_t> &valueIndices);
+extern void getSortedIndices(const std::vector<uint32_t> &values, std::vector<uint32_t> &valueIndices);
 
-void reorder_by_index(uint64_t *values, const uint64_t *indices, size_t num_values);
-void reorder_by_index(float *values, const uint32_t *indices, size_t num_values);
-void reorder_by_index(float *values, const uint64_t *indices, size_t num_values);
-void reorder_by_index(uint32_t *values, const uint32_t *indices, size_t num_values);
+extern void reorder_by_index(uint64_t *values, const uint64_t *indices, size_t num_values);
+extern void reorder_by_index(float *values, const uint32_t *indices, size_t num_values);
+extern void reorder_by_index(float *values, const uint64_t *indices, size_t num_values);
+extern void reorder_by_index(uint32_t *values, const uint32_t *indices, size_t num_values);
 
 } // namespace device
 
 } // namespace cut
 
 #endif
-#endif // SORT_UTIL_CUH
+#endif // CUT_SORT_UTIL_CUH

@@ -30,6 +30,8 @@
 
 namespace cut
 {
+namespace device
+{
 
 void find_minmax_device(const float *values, size_t num_values, float &min, float &max)
 {
@@ -61,4 +63,5 @@ void find_max_host(const float *values, size_t num_values, float &max)
     max = *thrust::max_element(vec.begin(), vec.end());
 }
 
+} // namespace device
 } // namespace cut
