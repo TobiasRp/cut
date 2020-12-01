@@ -27,7 +27,7 @@
 
 #ifdef CUDA_SUPPORT
 #include "sort_util.cuh"
-#endif 
+#endif
 
 #include <vector>
 #include <algorithm>
@@ -54,7 +54,7 @@ void reorder_by_index(ValueType *values, const IndexType *indices, size_t num_va
 #ifdef CUDA_SUPPORT
     cut::device::reorder_by_index(values, indices, num_values);
 #else
-    vector<ValueType> temp(num_values);
+    std::vector<ValueType> temp(num_values);
     for (size_t i = 0; i < num_values; ++i)
         temp[i] = values[indices[i]];
     std::copy(temp, temp + num_values, values);

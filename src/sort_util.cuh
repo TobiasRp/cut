@@ -27,7 +27,6 @@
 
 #ifdef CUDA_SUPPORT
 #include "cut_common.h"
-#include <vector>
 
 namespace cut
 {

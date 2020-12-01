@@ -25,7 +25,7 @@
 #ifndef KERNELS_H
 #define KERNELS_H
 
-#include "cuda_common.h"
+#include "cut_common.h"
 
 namespace cut
 {
