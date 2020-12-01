@@ -24,11 +24,11 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sort_util.cuh"
 
-using std::vector;
-
 #include <thrust/device_vector.h>
 #include <thrust/sort.h>
 #include <thrust/sequence.h>
+
+using std::vector;
 
 namespace cut
 {

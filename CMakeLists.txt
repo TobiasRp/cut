@@ -1,21 +1,25 @@
 cmake_minimum_required(VERSION 3.17)
 
-add_library(cut_properties INTERFACE)
-option(ENABLE_CUDA "Build with CUDA" FALSE)
+add_library(cut "")
+
+option(ENABLE_CUDA "Build with CUDA" OFF)
 if(ENABLE_CUDA)
     project(cut CXX CUDA)
-    target_compile_definitions(cut_properties INTERFACE CUDA_SUPPORT)
-    target_compile_features(cut_properties INTERFACE cxx_std_14 cuda_std_14)
+    target_compile_definitions(cut PUBLIC CUDA_SUPPORT)
+    target_compile_features(cut PUBLIC cxx_std_14 cuda_std_14)
 else()
     project(cut CXX)
-    target_compile_features(cut_properties INTERFACE cxx_std_14)
+    target_compile_features(cut PUBLIC cxx_std_14)
 endif()
 
-add_library(cut src/cut_common.cpp src/cut_memory.cpp src/extrema.cpp src/extrema.cu src/sort_util.cu src/timing.cpp)
+if(ENABLE_CUDA)
+    target_sources(cut PRIVATE src/extrema.cu src/sort_util.cu)
+endif()
+target_sources(cut PRIVATE src/cut_common.cpp src/cut_memory.cpp src/extrema.cpp src/timing.cpp)
+
 target_include_directories(cut PUBLIC ${PROJECT_SOURCE_DIR}/include/)
-target_include_directories(cut PUBLIC ${PROJECT_SOURCE_DIR}/src/)
+
 set_target_properties(cut PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
-target_link_libraries(cut cut_properties)
 
 include(cmake/ClangTidy.cmake)
 include(cmake/CompilerWarnings.cmake)
