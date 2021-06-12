@@ -1,8 +1,8 @@
-# cut: CUDA utilities
+# cut: C++ and CUDA utilities
 
-Some commonly used code for working in C++.
+Some commonly used code for working in C++ and CUDA. This is a coherent collection of code that I found myself reusing a lot. It is not a production ready library.
 
-Despite its name, most functionality can be used with and without CUDA.
+Despite its name, **most** functionality can be used with and without CUDA.
 
 ### Status
 
