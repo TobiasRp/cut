@@ -10,4 +10,4 @@ This library is still **work in progress** since I am still in the process of fa
 
 ### Usage
 
-When using modern cmake, you can add directly use this project by adding it as a _subdirectory_.
+When using modern cmake, you can directly use this project by adding it as a _subdirectory_.
