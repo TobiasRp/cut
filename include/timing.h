@@ -51,8 +51,8 @@ public:
 #endif
 
 /**
- * @brief The TimeLogger class is useful for detailed timings and statistics,
- * but its impact on performance is probably too much for production use.
+ * The TimeLogger class is useful for detailed timings and statistics,
+ * for both CUDA and CPU.
  */
 class TimeLogger
 {
