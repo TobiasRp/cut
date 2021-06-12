@@ -124,10 +124,6 @@ void reportDeviceMemory()
 
 size_t getAllocatedDeviceMemory()
 {
-    //    size_t free, total;
-    //    CHECK_CUDA(cudaMemGetInfo(&free, &total));
-    //    return total - free;
-
     size_t total = 0;
     s_allocLock.lock();
     for (auto it : s_allocMap)
